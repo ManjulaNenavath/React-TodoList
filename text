@@ -1,0 +1,97 @@
+import { ListItemText } from '@material-ui/core'
+import React from 'react';
+import './Todo.css'
+import {List,ListItem} from '@material-ui/core';
+function Todo(props) {
+    return (
+        <List className='todo_list'>
+            <ListItem>
+                <ListItemText primary={props.text} secondart="" />
+            </ListItem>
+        </List>
+        
+    )
+}
+
+export default Todo
+------------------------
+import React,{useState,useEffect} from 'react';
+import {Button,FormControl,Input, InputLabel} from '@material-ui/core';
+import Todo from './Todo';
+import './App.css';
+import db from './firebase';
+
+function App() {
+  const [todos,setTodos]= useState([]);
+  const[input,setInput]=useState('');
+ 
+  useEffect(() => {
+   db.collection('todos').onSnapshot(snapshot =>{
+     setTodos(snapshot.docs.map(doc => doc.data().todo))
+   })
+    
+  }, []);
+
+  const addTodo =(event)=>{
+    event.preventDefault();
+    setTodos([...todos, input]);
+    setInput('');
+  }
+  return (
+    <div className="App">
+     <h1>Hellp world</h1>
+     <FormControl>
+       <InputLabel>Write a Todo</InputLabel>
+       <Input value={input} onChange={event=> setInput(event.target.value)}/>
+     <Button disabled={!input} onClick={addTodo} variant="contained" color="primary">
+     Add Todo
+      </Button>
+     </FormControl>
+     
+     
+      <ul>
+       {todos.map(todo => (
+        <Todo text={todo}/>
+       ))}
+      
+     </ul>
+    </div>
+  );
+}
+
+export default App;
+-----------------------------
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

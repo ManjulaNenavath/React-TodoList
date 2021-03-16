@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+input{
+  margin :10px;
+  height: 30px;
+  width: 225px;
+  font-size: 18px;
+  padding : 5px;
+}
+
+button{
+ 
+  height: 60px;
+  margin :5px;
+  background-color: coral;
+  border-radius: 5px;
+  color: #f0f8ff;
+  font-size: 18px;
+  padding : 5px;
+}
+button:hover{
+  cursor: pointer;
+}
+p{
+  font-family: monospace;
+  font-size: 18px;
+}
+ul{
+  display : grid;
+  place-items: center;
+}
+li{
+  list-style-type: none;
+  width: 250px;
+  height:35px;
+  background-color: yellowgreen;
+  margin :2px;
+  padding-top: 4px;
+  color: aliceblue;
+  font-family: monospace;
+  font-size: 18px;
+}
+#task{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
